@@ -1,6 +1,8 @@
-// 🔥 LOAD VENDOR DATA
-window.addEventListener("DOMContentLoaded", function () {
-  let vendor = JSON.parse(localStorage.getItem("currentVendor"));
+import { db } from "./firebase.js";
+import { collection, getDocs, updateDoc, doc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+window.addEventListener("DOMContentLoaded", async function () {
+  let vendor = JSON.parse(localStorage.getItem("loggedVendor"));
 
   if (!vendor) {
     window.location.href = "vendor-login.html";
@@ -12,53 +14,49 @@ window.addEventListener("DOMContentLoaded", function () {
   document.getElementById("vPin").innerText = vendor.pincode;
   document.getElementById("vPhone").innerText = vendor.phone;
 
-  loadOrders(vendor);
+  await loadOrders(vendor);
 });
 
-// 📦 LOAD ORDERS
-function loadOrders(vendor) {
-  let orders = JSON.parse(localStorage.getItem("orders")) || [];
+async function loadOrders(vendor) {
+  const snapshot = await getDocs(collection(db, "orders"));
   let container = document.getElementById("ordersList");
 
-  // 🔍 FILTER ONLY THIS VENDOR'S ORDERS
-  let vendorOrders = orders.filter(o => o.vendor === vendor.name);
+  let output = "";
 
-  if (vendorOrders.length === 0) {
-    container.innerHTML = "<p>No orders yet</p>";
-    return;
-  }
+  snapshot.forEach((docSnap) => {
+    let data = docSnap.data();
 
-  container.innerHTML = vendorOrders.map((order, index) => `
-    <div class="order-card">
-      <p><strong>👤 ${order.name}</strong></p>
-      <p>📞 ${order.phone}</p>
-      <p>📍 ${order.address}</p>
-      <p>♻️ ${order.scrapType} (${order.weight}kg)</p>
-      <p>📅 ${order.date}</p>
-      <p>Status: <strong>${order.status}</strong></p>
+    if (data.vendor === vendor.name) {
+      output += `
+        <div class="order-card">
+          <p><strong>${data.name}</strong></p>
+          <p>${data.phone}</p>
+          <p>${data.address}</p>
+          <p>${data.scrapType}</p>
+          <p>Status: ${data.status}</p>
 
-      ${
-        order.status === "Pending"
-        ? `<button onclick="completeOrder(${index})">Mark Completed ✅</button>`
-        : ""
-      }
-    </div>
-  `).join("");
+          ${
+            data.status === "Pending"
+            ? `<button onclick="completeOrder('${docSnap.id}')">Complete</button>`
+            : ""
+          }
+        </div>
+      `;
+    }
+  });
+
+  container.innerHTML = output || "No orders yet";
 }
 
-// ✅ COMPLETE ORDER
-function completeOrder(index) {
-  let orders = JSON.parse(localStorage.getItem("orders")) || [];
-
-  orders[index].status = "Completed";
-
-  localStorage.setItem("orders", JSON.stringify(orders));
+window.completeOrder = async function(id) {
+  await updateDoc(doc(db, "orders", id), {
+    status: "Completed"
+  });
 
   location.reload();
-}
+};
 
-// 🔐 LOGOUT
-function logout() {
-  localStorage.removeItem("currentVendor");
+window.logout = function() {
+  localStorage.removeItem("loggedVendor");
   window.location.href = "vendor-login.html";
-}
+};
