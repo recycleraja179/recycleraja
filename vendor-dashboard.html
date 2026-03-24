@@ -4,6 +4,49 @@
   <title>Vendor Dashboard - RecycleRaja</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="style.css">
+
+  <!-- 🔥 INTERNAL CSS FOR STATS -->
+  <style>
+    .stats-container {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 15px;
+      margin: 20px 0;
+    }
+
+    .stat-box {
+      background: #f5f7fa;
+      padding: 15px;
+      border-radius: 12px;
+      text-align: center;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+      transition: 0.3s;
+    }
+
+    .stat-box:hover {
+      transform: translateY(-3px);
+    }
+
+    .stat-title {
+      font-size: 14px;
+      color: #777;
+    }
+
+    .stat-value {
+      font-size: 22px;
+      font-weight: bold;
+      margin-top: 5px;
+      color: #2c7be5;
+    }
+
+    .order-card {
+      background: #fff;
+      padding: 15px;
+      border-radius: 12px;
+      margin: 10px 0;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    }
+  </style>
 </head>
 <body>
 
@@ -22,9 +65,38 @@
 
     <hr>
 
+    <!-- 🔥 STATS SECTION -->
+    <h3>📊 Performance Overview</h3>
+
+    <div class="stats-container">
+      <div class="stat-box">
+        <div class="stat-title">📅 Today Orders</div>
+        <div class="stat-value" id="todayOrders">0</div>
+      </div>
+
+      <div class="stat-box">
+        <div class="stat-title">📆 Weekly Orders</div>
+        <div class="stat-value" id="weekOrders">0</div>
+      </div>
+
+      <div class="stat-box">
+        <div class="stat-title">💰 Monthly Revenue</div>
+        <div class="stat-value">₹<span id="monthRevenue">0</span></div>
+      </div>
+
+      <div class="stat-box">
+        <div class="stat-title">📈 Yearly Revenue</div>
+        <div class="stat-value">₹<span id="yearRevenue">0</span></div>
+      </div>
+    </div>
+
+    <hr>
+
+    <!-- 📦 ORDERS -->
     <h3>📦 Your Orders</h3>
     <div id="ordersList"></div>
 
+    <!-- 🔐 LOGOUT -->
     <button onclick="logout()" class="cta-btn">Logout 🚪</button>
 
   </div>
