@@ -1,19 +1,38 @@
-function login() {
-  let id = document.getElementById("vid").value;
-  let pass = document.getElementById("pass").value;
+import { db } from "./firebase.js";
+import { collection, getDocs } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
-  let vendors = JSON.parse(localStorage.getItem("vendors")) || [];
+document.getElementById("loginForm")?.addEventListener("submit", async function(e) {
+  e.preventDefault();
 
-  let found = vendors.find(v => v.id === id && v.password === pass);
+  let id = document.getElementById("vendorId").value.trim().toLowerCase();
+  let password = document.getElementById("password").value.trim();
 
-  if (found) {
-    // ✅ Save current vendor
-    localStorage.setItem("currentVendor", JSON.stringify(found));
+  console.log("Entered:", id, password);
 
-    // 🔥 Redirect to dashboard (we create next)
+  const snapshot = await getDocs(collection(db, "vendors"));
+
+  let foundVendor = null;
+
+  snapshot.forEach((doc) => {
+    let v = doc.data();
+
+    let dbId = (v.id || "").trim().toLowerCase();
+    let dbPass = (v.password || "").trim();
+
+    console.log("Checking:", dbId, dbPass);
+
+    if (dbId === id && dbPass === password) {
+      foundVendor = v;
+    }
+  });
+
+  if (foundVendor) {
+    alert("Login Successful ✅");
+
+    localStorage.setItem("loggedVendor", JSON.stringify(foundVendor));
+
     window.location.href = "vendor-dashboard.html";
-
   } else {
-    document.getElementById("errorMsg").innerText = "Invalid ID or Password ❌";
+    alert("Invalid ID or Password ❌");
   }
-}
+});
