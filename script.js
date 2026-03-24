@@ -94,7 +94,8 @@ document.getElementById("sellForm")?.addEventListener("submit", async function(e
   let pincode = document.getElementById("pincodeSelect").value;
   let scrapType = document.getElementById("scrapType").value;
   let weight = document.getElementById("weight").value;
-  let time = document.getElementById("time").value;
+  let pickupDate = document.getElementById("pickupDate").value;
+let pickupTime = document.getElementById("pickupTime").value;
   let notes = document.getElementById("notes").value;
 
   // 🔥 GET VENDORS FROM FIREBASE (MATCHING)
