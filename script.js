@@ -1,28 +1,39 @@
 // 🚀 IMPORT FIREBASE
 import { db } from "./firebase.js";
-import { collection, addDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+import { collection, addDoc, getDocs } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
 
 // ==============================
-// 📍 LOAD VENDORS + CART
+// 📍 LOAD VENDORS FROM FIREBASE + CART
 // ==============================
 window.addEventListener("DOMContentLoaded", function () {
-  let vendors = JSON.parse(localStorage.getItem("vendors")) || [];
-  let select = document.getElementById("pincodeSelect");
-
-  if (select) {
-    select.innerHTML = `<option value="">Select Your Area</option>`;
-
-    vendors.forEach(v => {
-      let option = document.createElement("option");
-      option.value = v.pincode;
-      option.textContent = `${v.area} (${v.pincode})`;
-      select.appendChild(option);
-    });
-  }
-
+  loadVendors(); // 🔥 NEW
   loadCartSummary();
 });
+
+
+// ==============================
+// 🔥 LOAD VENDORS FROM FIREBASE
+// ==============================
+async function loadVendors() {
+  const querySnapshot = await getDocs(collection(db, "vendors"));
+
+  let select = document.getElementById("pincodeSelect");
+
+  if (!select) return;
+
+  select.innerHTML = `<option value="">Select Your Area</option>`;
+
+  querySnapshot.forEach((doc) => {
+    let v = doc.data();
+
+    let option = document.createElement("option");
+    option.value = v.pincode;
+    option.textContent = `${v.area} (${v.pincode})`;
+
+    select.appendChild(option);
+  });
+}
 
 
 // ==============================
@@ -75,7 +86,7 @@ if (savedType) {
 document.getElementById("sellForm")?.addEventListener("submit", async function(e) {
   e.preventDefault();
 
-  console.log("🔥 Form submitted"); // ✅ DEBUG 1
+  console.log("🔥 Form submitted");
 
   let name = document.getElementById("name").value;
   let phone = document.getElementById("phone").value;
@@ -86,8 +97,17 @@ document.getElementById("sellForm")?.addEventListener("submit", async function(e
   let time = document.getElementById("time").value;
   let notes = document.getElementById("notes").value;
 
-  let vendors = JSON.parse(localStorage.getItem("vendors")) || [];
-  let matchedVendor = vendors.find(v => v.pincode === pincode);
+  // 🔥 GET VENDORS FROM FIREBASE (MATCHING)
+  const querySnapshot = await getDocs(collection(db, "vendors"));
+
+  let matchedVendor = null;
+
+  querySnapshot.forEach((doc) => {
+    let v = doc.data();
+    if (v.pincode === pincode) {
+      matchedVendor = v;
+    }
+  });
 
   let cart = JSON.parse(localStorage.getItem("cart")) || [];
   let total = localStorage.getItem("total") || 0;
@@ -98,10 +118,10 @@ document.getElementById("sellForm")?.addEventListener("submit", async function(e
 
 
   // ==============================
-  // 🔥 SAVE TO FIREBASE
+  // 🔥 SAVE TO FIREBASE (ORDERS)
   // ==============================
   try {
-    console.log("📤 Sending data to Firebase..."); // ✅ DEBUG 2
+    console.log("📤 Sending data to Firebase...");
 
     await addDoc(collection(db, "orders"), {
       name,
@@ -119,7 +139,7 @@ document.getElementById("sellForm")?.addEventListener("submit", async function(e
       createdAt: new Date()
     });
 
-    console.log("✅ Data saved to Firebase"); // ✅ DEBUG 3
+    console.log("✅ Data saved to Firebase");
 
   } catch (err) {
     console.error("❌ Firebase Error:", err);
