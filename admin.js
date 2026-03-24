@@ -1,12 +1,12 @@
 // 🚀 IMPORT FIREBASE
 import { db } from "./firebase.js";
-import { collection, getDocs } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+import { collection, getDocs, addDoc, deleteDoc, doc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
 
 // ==============================
-// ➕ ADD VENDOR (LOCAL STORAGE)
+// ➕ ADD VENDOR (FIREBASE)
 // ==============================
-document.getElementById("adminForm")?.addEventListener("submit", function(e) {
+document.getElementById("adminForm")?.addEventListener("submit", async function(e) {
   e.preventDefault();
 
   let vendor = {
@@ -15,68 +15,71 @@ document.getElementById("adminForm")?.addEventListener("submit", function(e) {
     area: document.getElementById("area").value,
     pincode: document.getElementById("pincode").value,
     id: document.getElementById("vid").value,
-    password: document.getElementById("passField").value
+    password: document.getElementById("passField").value,
+    createdAt: new Date()
   };
 
-  let vendors = JSON.parse(localStorage.getItem("vendors")) || [];
+  try {
+    await addDoc(collection(db, "vendors"), vendor);
 
-  let exists = vendors.find(v => v.id === vendor.id);
+    alert("Vendor Added ✅");
+    document.getElementById("adminForm").reset();
 
-  if (exists) {
-    alert("Vendor ID already exists ❌");
-    return;
+    loadVendors(); // refresh list
+  } catch (err) {
+    console.error(err);
+    alert("Error adding vendor ❌");
   }
-
-  vendors.push(vendor);
-  localStorage.setItem("vendors", JSON.stringify(vendors));
-
-  alert("Vendor Added ✅");
-  document.getElementById("adminForm").reset();
-
-  loadVendors();
 });
 
 
 // ==============================
-// 📋 LOAD VENDORS
+// 📋 LOAD VENDORS FROM FIREBASE
 // ==============================
-function loadVendors() {
-  let vendors = JSON.parse(localStorage.getItem("vendors")) || [];
+async function loadVendors() {
+  const querySnapshot = await getDocs(collection(db, "vendors"));
 
   let list = document.getElementById("vendorList");
   let total = document.getElementById("totalVendors");
 
-  if (total) total.innerText = vendors.length;
-
   if (!list) return;
+
+  let vendors = [];
+
+  querySnapshot.forEach((docSnap) => {
+    vendors.push({ id: docSnap.id, ...docSnap.data() });
+  });
+
+  if (total) total.innerText = vendors.length;
 
   if (vendors.length === 0) {
     list.innerHTML = "<p>No vendors added yet</p>";
     return;
   }
 
-  list.innerHTML = vendors.map((v, index) => `
+  list.innerHTML = vendors.map((v) => `
     <div class="order-card">
       <p><strong>${v.name}</strong></p>
       <p>📞 ${v.phone}</p>
       <p>📍 ${v.area} (${v.pincode})</p>
       <p>🆔 ID: ${v.id}</p>
-      <button onclick="deleteVendor(${index})">Delete ❌</button>
+      <button onclick="deleteVendor('${v.id}')">Delete ❌</button>
     </div>
   `).join("");
 }
 
 
 // ==============================
-// ❌ DELETE VENDOR
+// ❌ DELETE VENDOR FROM FIREBASE
 // ==============================
-window.deleteVendor = function(index) {
-  let vendors = JSON.parse(localStorage.getItem("vendors")) || [];
-
-  vendors.splice(index, 1);
-  localStorage.setItem("vendors", JSON.stringify(vendors));
-
-  loadVendors();
+window.deleteVendor = async function(id) {
+  try {
+    await deleteDoc(doc(db, "vendors", id));
+    loadVendors();
+  } catch (err) {
+    console.error(err);
+    alert("Error deleting vendor ❌");
+  }
 };
 
 
