@@ -21,10 +21,12 @@ document.getElementById("loginForm")?.addEventListener("submit", async function(
 
     console.log("Checking:", dbId, dbPass);
 
-    if (dbId === id && dbPass === password) {
+    if (dbId == id && dbPass == password) {
       foundVendor = v;
     }
   });
+
+  console.log("Found vendor:", foundVendor);
 
   if (foundVendor) {
     alert("Login Successful ✅");
