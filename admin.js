@@ -1,6 +1,11 @@
-// 🚀 ADMIN PANEL LOGIC
+// 🚀 IMPORT FIREBASE
+import { db } from "./firebase.js";
+import { collection, getDocs } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
-// ➕ ADD VENDOR
+
+// ==============================
+// ➕ ADD VENDOR (LOCAL STORAGE)
+// ==============================
 document.getElementById("adminForm")?.addEventListener("submit", function(e) {
   e.preventDefault();
 
@@ -15,7 +20,6 @@ document.getElementById("adminForm")?.addEventListener("submit", function(e) {
 
   let vendors = JSON.parse(localStorage.getItem("vendors")) || [];
 
-  // 🔥 CHECK DUPLICATE ID
   let exists = vendors.find(v => v.id === vendor.id);
 
   if (exists) {
@@ -24,17 +28,18 @@ document.getElementById("adminForm")?.addEventListener("submit", function(e) {
   }
 
   vendors.push(vendor);
-
   localStorage.setItem("vendors", JSON.stringify(vendors));
 
   alert("Vendor Added ✅");
-
   document.getElementById("adminForm").reset();
 
   loadVendors();
 });
 
+
+// ==============================
 // 📋 LOAD VENDORS
+// ==============================
 function loadVendors() {
   let vendors = JSON.parse(localStorage.getItem("vendors")) || [];
 
@@ -56,23 +61,62 @@ function loadVendors() {
       <p>📞 ${v.phone}</p>
       <p>📍 ${v.area} (${v.pincode})</p>
       <p>🆔 ID: ${v.id}</p>
-
-      <!-- ❌ DELETE BUTTON -->
       <button onclick="deleteVendor(${index})">Delete ❌</button>
     </div>
   `).join("");
 }
 
+
+// ==============================
 // ❌ DELETE VENDOR
-function deleteVendor(index) {
+// ==============================
+window.deleteVendor = function(index) {
   let vendors = JSON.parse(localStorage.getItem("vendors")) || [];
 
   vendors.splice(index, 1);
-
   localStorage.setItem("vendors", JSON.stringify(vendors));
 
   loadVendors();
+};
+
+
+// ==============================
+// 📦 LOAD ORDERS FROM FIREBASE
+// ==============================
+async function loadOrders() {
+  const querySnapshot = await getDocs(collection(db, "orders"));
+
+  let container = document.getElementById("ordersContainer");
+
+  if (!container) return;
+
+  let output = "";
+
+  querySnapshot.forEach((doc) => {
+    const data = doc.data();
+
+    output += `
+      <div class="order-card">
+        <h3>👤 ${data.name}</h3>
+        <p>📞 ${data.phone}</p>
+        <p>📍 ${data.address}</p>
+        <p>📮 ${data.pincode || "Not selected"}</p>
+        <p>♻️ ${data.scrapType}</p>
+        <p>⚖️ ${data.weight} kg</p>
+        <p>💰 ₹${data.total}</p>
+        <p>Status: ${data.status}</p>
+      </div>
+    `;
+  });
+
+  container.innerHTML = output || "<p>No orders yet</p>";
 }
 
-// 🔥 LOAD ON PAGE START
-window.addEventListener("DOMContentLoaded", loadVendors);
+
+// ==============================
+// 🔥 LOAD EVERYTHING
+// ==============================
+window.addEventListener("DOMContentLoaded", () => {
+  loadVendors();
+  loadOrders();
+});
