@@ -75,6 +75,8 @@ if (savedType) {
 document.getElementById("sellForm")?.addEventListener("submit", async function(e) {
   e.preventDefault();
 
+  console.log("🔥 Form submitted"); // ✅ DEBUG 1
+
   let name = document.getElementById("name").value;
   let phone = document.getElementById("phone").value;
   let address = document.getElementById("address").value;
@@ -85,11 +87,8 @@ document.getElementById("sellForm")?.addEventListener("submit", async function(e
   let notes = document.getElementById("notes").value;
 
   let vendors = JSON.parse(localStorage.getItem("vendors")) || [];
-
-  // 🔍 FIND VENDOR
   let matchedVendor = vendors.find(v => v.pincode === pincode);
 
-  // 🧾 CART DATA
   let cart = JSON.parse(localStorage.getItem("cart")) || [];
   let total = localStorage.getItem("total") || 0;
 
@@ -102,6 +101,8 @@ document.getElementById("sellForm")?.addEventListener("submit", async function(e
   // 🔥 SAVE TO FIREBASE
   // ==============================
   try {
+    console.log("📤 Sending data to Firebase..."); // ✅ DEBUG 2
+
     await addDoc(collection(db, "orders"), {
       name,
       phone,
@@ -118,9 +119,10 @@ document.getElementById("sellForm")?.addEventListener("submit", async function(e
       createdAt: new Date()
     });
 
-    console.log("✅ Data saved to Firebase");
+    console.log("✅ Data saved to Firebase"); // ✅ DEBUG 3
+
   } catch (err) {
-    console.error("Firebase Error:", err);
+    console.error("❌ Firebase Error:", err);
   }
 
 
