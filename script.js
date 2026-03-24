@@ -1,15 +1,16 @@
-// 🚀 MAIN SCRIPT (RecycleRaja)
+// 🚀 IMPORT FIREBASE
+import { db } from "./firebase.js";
+import { collection, addDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
 
 // ==============================
-// 📍 LOAD VENDORS INTO DROPDOWN
+// 📍 LOAD VENDORS + CART
 // ==============================
 window.addEventListener("DOMContentLoaded", function () {
   let vendors = JSON.parse(localStorage.getItem("vendors")) || [];
-
   let select = document.getElementById("pincodeSelect");
 
   if (select) {
-    // Clear default except first
     select.innerHTML = `<option value="">Select Your Area</option>`;
 
     vendors.forEach(v => {
@@ -20,13 +21,12 @@ window.addEventListener("DOMContentLoaded", function () {
     });
   }
 
-  // 🧾 LOAD CART DATA (if exists)
   loadCartSummary();
 });
 
 
 // ==============================
-// 🧾 LOAD CART DATA INTO SELL PAGE
+// 🧾 LOAD CART
 // ==============================
 function loadCartSummary() {
   let cart = JSON.parse(localStorage.getItem("cart")) || [];
@@ -49,9 +49,30 @@ function loadCartSummary() {
 
 
 // ==============================
-// 📦 FORM SUBMIT → MATCH VENDOR
+// 🔥 AUTO-FILL SCRAP TYPE
 // ==============================
-document.getElementById("sellForm")?.addEventListener("submit", function(e) {
+let savedType = localStorage.getItem("scrapType");
+
+if (savedType) {
+  let scrapInput = document.getElementById("scrapType");
+
+  if (scrapInput) {
+    let options = scrapInput.options;
+
+    for (let i = 0; i < options.length; i++) {
+      if (savedType.toLowerCase().includes(options[i].value.toLowerCase())) {
+        scrapInput.selectedIndex = i;
+        break;
+      }
+    }
+  }
+}
+
+
+// ==============================
+// 📦 FORM SUBMIT (MAIN LOGIC)
+// ==============================
+document.getElementById("sellForm")?.addEventListener("submit", async function(e) {
   e.preventDefault();
 
   let name = document.getElementById("name").value;
@@ -65,7 +86,7 @@ document.getElementById("sellForm")?.addEventListener("submit", function(e) {
 
   let vendors = JSON.parse(localStorage.getItem("vendors")) || [];
 
-  // 🔍 FIND MATCHED VENDOR
+  // 🔍 FIND VENDOR
   let matchedVendor = vendors.find(v => v.pincode === pincode);
 
   // 🧾 CART DATA
@@ -76,7 +97,36 @@ document.getElementById("sellForm")?.addEventListener("submit", function(e) {
     `${item.name} - ${item.qty}kg = ₹${item.total}`
   ).join("\n");
 
-  // 📩 MESSAGE
+
+  // ==============================
+  // 🔥 SAVE TO FIREBASE
+  // ==============================
+  try {
+    await addDoc(collection(db, "orders"), {
+      name,
+      phone,
+      address,
+      pincode,
+      scrapType,
+      weight,
+      time,
+      notes,
+      cart,
+      total,
+      vendor: matchedVendor?.name || "Not Assigned",
+      status: "Pending",
+      createdAt: new Date()
+    });
+
+    console.log("✅ Data saved to Firebase");
+  } catch (err) {
+    console.error("Firebase Error:", err);
+  }
+
+
+  // ==============================
+  // 📩 WHATSAPP SEND
+  // ==============================
   let message = `
 📦 Scrap Pickup Request
 
@@ -103,53 +153,6 @@ ${cartText}
   } else {
     alert("❌ No vendor available in this area");
   }
+
+  alert("✅ Request Submitted Successfully!");
 });
-// 🔥 AUTO-FILL SCRAP TYPE
-let savedType = localStorage.getItem("scrapType");
-
-if (savedType) {
-  let scrapInput = document.getElementById("scrapType");
-
-  if (scrapInput) {
-    // If it's dropdown → set first option
-    let options = scrapInput.options;
-
-    for (let i = 0; i < options.length; i++) {
-      if (savedType.toLowerCase().includes(options[i].value.toLowerCase())) {
-        scrapInput.selectedIndex = i;
-        break;
-      }
-    }
-  }
-}
-let order = {
-  name,
-  phone,
-  address,
-  pincode,
-  scrapType,
-  weight,
-  vendor: matchedVendor?.name || "Not Assigned",
-  status: "Pending",
-  date: new Date().toLocaleString()
-};
-
-let orders = JSON.parse(localStorage.getItem("orders")) || [];
-orders.push(order);
-localStorage.setItem("orders", JSON.stringify(orders));
-// 💾 SAVE ORDER
-let order = {
-  name,
-  phone,
-  address,
-  pincode,
-  scrapType,
-  weight,
-  vendor: matchedVendor?.name || "Not Assigned",
-  status: "Pending",
-  date: new Date().toLocaleString()
-};
-
-let orders = JSON.parse(localStorage.getItem("orders")) || [];
-orders.push(order);
-localStorage.setItem("orders", JSON.stringify(orders));
