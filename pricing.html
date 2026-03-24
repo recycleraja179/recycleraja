@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Scrap Prices - RecycleRaja</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+
+<!-- 🔥 NAVBAR -->
+<header class="navbar">
+  <h1 class="logo">♻️ RecycleRaja</h1>
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="pricing.html">Prices</a>
+    <a href="locations.html">Locations</a>
+    <a href="about.html">About</a>
+    <a href="sell.html" class="btn">Sell Scrap</a>
+  </nav>
+</header>
+
+<!-- 💰 PRICING -->
+<section class="pricing">
+  <h1>Scrap Price List 💰</h1>
+  <p>Select items and estimate your earnings</p>
+
+  <div class="price-list">
+
+    <!-- 📄 PAPER -->
+    <div class="item-card">
+      <h3>📄 Newspaper</h3>
+      <p>₹8 / kg</p>
+      <input type="number" id="paperQty" placeholder="Enter kg" oninput="calculateItem('paperQty', 8, 'paperPrice')">
+      <p id="paperPrice">Estimated: ₹0</p>
+      <button onclick="addItem('Newspaper', 8, 'paperQty')">Add</button>
+    </div>
+
+    <!-- 🧴 PLASTIC -->
+    <div class="item-card">
+      <h3>🧴 Plastic</h3>
+      <p>₹10 / kg</p>
+      <input type="number" id="plasticQty" placeholder="Enter kg" oninput="calculateItem('plasticQty', 10, 'plasticPrice')">
+      <p id="plasticPrice">Estimated: ₹0</p>
+      <button onclick="addItem('Plastic', 10, 'plasticQty')">Add</button>
+    </div>
+
+    <!-- 🔩 METAL -->
+    <div class="item-card">
+      <h3>🔩 Iron</h3>
+      <p>₹25 / kg</p>
+      <input type="number" id="ironQty" placeholder="Enter kg" oninput="calculateItem('ironQty', 25, 'ironPrice')">
+      <p id="ironPrice">Estimated: ₹0</p>
+      <button onclick="addItem('Iron', 25, 'ironQty')">Add</button>
+    </div>
+
+    <!-- 🥫 ALUMINIUM -->
+    <div class="item-card">
+      <h3>🥫 Aluminium</h3>
+      <p>₹80 / kg</p>
+      <input type="number" id="aluQty" placeholder="Enter kg" oninput="calculateItem('aluQty', 80, 'aluPrice')">
+      <p id="aluPrice">Estimated: ₹0</p>
+      <button onclick="addItem('Aluminium', 80, 'aluQty')">Add</button>
+    </div>
+
+    <!-- 🔌 COPPER -->
+    <div class="item-card">
+      <h3>🔌 Copper</h3>
+      <p>₹500 / kg</p>
+      <input type="number" id="copperQty" placeholder="Enter kg" oninput="calculateItem('copperQty', 500, 'copperPrice')">
+      <p id="copperPrice">Estimated: ₹0</p>
+      <button onclick="addItem('Copper', 500, 'copperQty')">Add</button>
+    </div>
+
+    <!-- 📦 CARDBOARD -->
+    <div class="item-card">
+      <h3>📦 Cardboard</h3>
+      <p>₹6 / kg</p>
+      <input type="number" id="cardQty" placeholder="Enter kg" oninput="calculateItem('cardQty', 6, 'cardPrice')">
+      <p id="cardPrice">Estimated: ₹0</p>
+      <button onclick="addItem('Cardboard', 6, 'cardQty')">Add</button>
+    </div>
+
+  </div>
+
+  <!-- 🧾 CART -->
+  <div class="cart-box">
+    <h2>Your Scrap List 🧾</h2>
+    <p>No items added yet</p>
+    <h3>Total: ₹0</h3>
+    <a href="sell.html" class="cta-btn">Proceed</a>
+  </div>
+
+</section>
+
+<!-- 🔻 FOOTER -->
+<footer>
+  <p>© 2026 RecycleRaja | A ShalaTrack Company</p>
+</footer>
+
+<!-- ⚙️ JS -->
+<script src="../js/cart.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Vendor Dashboard - RecycleRaja</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+
+<header class="navbar">
+  <h1 class="logo">♻️ RecycleRaja</h1>
+</header>
+
+<section class="form-section">
+  <div class="form-box">
+
+    <h2>Welcome, <span id="vName"></span> 👋</h2>
+
+    <p><strong>📍 Area:</strong> <span id="vArea"></span></p>
+    <p><strong>📮 Pincode:</strong> <span id="vPin"></span></p>
+    <p><strong>📞 Phone:</strong> <span id="vPhone"></span></p>
+
+    <hr style="margin:20px 0;">
+
+    <h3>📊 Your Stats</h3>
+    <p>Orders Today: 0</p>
+    <p>Orders This Week: 0</p>
+    <p>Total Earnings: ₹0</p>
+
+    <!-- 📦 ORDERS SECTION -->
+    <hr style="margin:20px 0;">
+    <h3>📦 Your Orders</h3>
+    <div id="ordersList"></div>
+
+    <!-- 🔐 LOGOUT -->
+    <button onclick="logout()" class="cta-btn" style="margin-top:20px;">
+      Logout 🚪
+    </button>
+
+  </div>
+</section>
+
+<script src="../js/vendor-dashboard.js"></script>
+
+</body>
+</html>

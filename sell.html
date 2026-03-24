@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Sell Scrap - RecycleRaja</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+
+<!-- 🔥 NAVBAR -->
+<header class="navbar">
+  <h1 class="logo">♻️ RecycleRaja</h1>
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="pricing.html">Prices</a>
+    <a href="locations.html">Locations</a>
+    <a href="about.html">About</a>
+    <a href="sell.html" class="btn">Sell Scrap</a>
+  </nav>
+</header>
+
+<!-- 🚀 HERO -->
+<section class="form-hero">
+  <h1>Sell Your Scrap Easily ♻️</h1>
+  <p>Fill your details and we’ll connect you with the best nearby vendor.</p>
+</section>
+
+<!-- 💰 QUICK ACTION -->
+<section class="quick-links">
+  <p>💡 Want to check prices first?</p>
+  <a href="pricing.html" class="cta-btn">View Price List</a>
+</section>
+
+<!-- 📦 FORM -->
+<section class="form-section">
+  <div class="form-box">
+    <h2>Scrap Pickup Request</h2>
+
+    <form id="sellForm">
+
+      <input type="text" id="name" placeholder="Full Name" required>
+
+      <input type="tel" id="phone" placeholder="Phone Number" required>
+
+      <input type="text" id="address" placeholder="Address" required>
+
+      <!-- 📍 DYNAMIC PINCODE -->
+      <select id="pincodeSelect" required>
+        <option value="">Select Your Area</option>
+      </select>
+
+      <select id="scrapType" required>
+        <option value="">Select Scrap Type</option>
+        <option>Paper</option>
+        <option>Plastic</option>
+        <option>Metal</option>
+        <option>E-Waste</option>
+        <option>Mixed Scrap</option>
+      </select>
+
+      <input type="number" id="weight" placeholder="Estimated Weight (kg)">
+
+      <input type="text" id="time" placeholder="Preferred Pickup Time">
+
+      <textarea id="notes" placeholder="Additional Details (optional)"></textarea>
+
+      <!-- 🧾 CART SUMMARY -->
+      <div id="cartSummary"></div>
+
+      <button type="submit" class="cta-btn big">Submit Request</button>
+
+    </form>
+  </div>
+</section>
+
+<!-- 🔒 TRUST -->
+<section class="trust">
+  <div class="trust-grid">
+    <div>✅ Verified Vendors</div>
+    <div>⚡ Fast Pickup</div>
+    <div>💰 Best Prices</div>
+  </div>
+</section>
+
+<!-- 🔗 EXTRA NAVIGATION -->
+<section class="extra-links">
+  <h3>Explore More</h3>
+  <div>
+    <a href="pricing.html">💰 Price List</a> |
+    <a href="locations.html">📍 Locations</a> |
+    <a href="about.html">ℹ️ About Us</a>
+  </div>
+</section>
+
+<!-- 🔻 FOOTER -->
+<footer>
+  <p>© 2026 RecycleRaja | A ShalaTrack Company</p>
+  <div>
+    <a href="index.html">Home</a> |
+    <a href="pricing.html">Prices</a> |
+    <a href="locations.html">Locations</a> |
+    <a href="about.html">About</a>
+  </div>
+</footer>
+
+<!-- ⚙️ JS -->
+<script src="../js/script.js"></script>
+
+</body>
+</html>

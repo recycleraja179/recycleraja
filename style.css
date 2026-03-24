@@ -1,0 +1,500 @@
+body {
+  margin: 0;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+/* NAVBAR */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 40px;
+  background: #1b5e20;
+  color: white;
+}
+
+.navbar a {
+  margin-left: 20px;
+  color: white;
+  text-decoration: none;
+}
+
+.btn {
+  background: white;
+  color: #1b5e20;
+  padding: 8px 15px;
+  border-radius: 5px;
+}
+
+/* HERO */
+.hero {
+  background: linear-gradient(to right, #2e7d32, #66bb6a);
+  color: white;
+  padding: 100px 20px;
+  text-align: center;
+}
+
+.hero h1 {
+  font-size: 40px;
+}
+
+.hero-buttons {
+  margin-top: 20px;
+}
+
+.cta-btn {
+  background: white;
+  color: #2e7d32;
+  padding: 12px 20px;
+  border-radius: 6px;
+  text-decoration: none;
+  margin: 10px;
+}
+
+.secondary-btn {
+  border: 1px solid white;
+  padding: 12px 20px;
+  color: white;
+  text-decoration: none;
+}
+
+/* SECTIONS */
+section {
+  padding: 60px 20px;
+  text-align: center;
+}
+
+.steps {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  flex-wrap: wrap;
+}
+
+.step {
+  max-width: 250px;
+}
+
+/* BENEFITS */
+.benefit-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+}
+
+.card {
+  padding: 20px;
+  width: 200px;
+  background: #f1f8e9;
+  border-radius: 10px;
+}
+
+/* CATEGORIES */
+.items {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+.item {
+  padding: 10px 20px;
+  background: #e8f5e9;
+  border-radius: 20px;
+}
+
+/* STATS */
+.stats-grid {
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+}
+
+/* TESTIMONIAL */
+.testimonial {
+  background: #f9f9f9;
+}
+
+.quote {
+  font-style: italic;
+}
+
+/* CTA */
+.cta {
+  background: #2e7d32;
+  color: white;
+}
+
+.cta .big {
+  font-size: 18px;
+}
+
+/* FOOTER */
+footer {
+  background: #1b5e20;
+  color: white;
+  padding: 15px;
+}
+/* sell price code */
+.form-hero {
+  background: #e8f5e9;
+  text-align: center;
+  padding: 60px 20px;
+}
+
+.form-box {
+  background: white;
+  padding: 30px;
+  max-width: 450px;
+  margin: auto;
+  border-radius: 10px;
+  box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+}
+
+input, select, textarea {
+  margin: 10px 0;
+  padding: 12px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
+
+textarea {
+  resize: none;
+  height: 80px;
+}
+
+.big {
+  font-size: 16px;
+}
+
+/* TRUST */
+.trust {
+  padding: 40px;
+  text-align: center;
+}
+
+.trust-grid {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  flex-wrap: wrap;
+}
+/* 🌈 Animated Background */
+body {
+  margin: 0;
+  font-family: 'Segoe UI', sans-serif;
+  background: linear-gradient(-45deg, #2e7d32, #66bb6a, #a5d6a7, #1b5e20);
+  background-size: 400% 400%;
+  animation: gradientBG 10s ease infinite;
+}
+
+/* Animation */
+@keyframes gradientBG {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+.bg-animation span {
+  position: absolute;
+  display: block;
+  width: 80px;
+  height: 80px;
+  background: rgba(255,255,255,0.2);
+  animation: move 20s linear infinite;
+  bottom: -150px;
+  border-radius: 50%;
+}
+
+.bg-animation span:nth-child(1) {
+  left: 10%;
+  animation-delay: 0s;
+}
+.bg-animation span:nth-child(2) {
+  left: 40%;
+  animation-delay: 5s;
+}
+.bg-animation span:nth-child(3) {
+  left: 70%;
+  animation-delay: 10s;
+}
+.bg-animation span:nth-child(4) {
+  left: 90%;
+  animation-delay: 15s;
+}
+
+@keyframes move {
+  0% {
+    transform: translateY(0) scale(1);
+  }
+  100% {
+    transform: translateY(-1000px) scale(1.5);
+  }
+}
+/* 💰 PRICING SECTION */
+.pricing {
+  text-align: center;
+  padding: 80px 20px;
+}
+
+/* 🧱 PRICE GRID */
+.price-list {
+  display: flex;
+  justify-content: center;
+  gap: 25px;
+  flex-wrap: wrap;
+  margin-top: 30px;
+}
+
+/* 📦 ITEM CARD */
+.item-card {
+  background: white;
+  padding: 25px;
+  width: 220px;
+  border-radius: 15px;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+  transition: 0.3s ease;
+}
+
+/* 🔥 HOVER EFFECT */
+.item-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 12px 30px rgba(0,0,0,0.2);
+}
+
+/* 📄 TITLE */
+.item-card h3 {
+  margin-bottom: 10px;
+}
+
+/* 💰 PRICE TEXT */
+.item-card p {
+  font-weight: bold;
+  color: #2e7d32;
+}
+
+/* 🔢 INPUT */
+.item-card input {
+  width: 100%;
+  margin: 12px 0;
+  padding: 10px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
+
+/* ➕ BUTTON */
+.item-card button {
+  width: 100%;
+  background: #2e7d32;
+  color: white;
+  border: none;
+  padding: 10px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.item-card button:hover {
+  background: #1b5e20;
+}
+
+/* 🧾 CART BOX */
+.cart-box {
+  margin-top: 50px;
+  background: linear-gradient(135deg, #e8f5e9, #c8e6c9);
+  padding: 25px;
+  border-radius: 15px;
+  max-width: 400px;
+  margin-left: auto;
+  margin-right: auto;
+  box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+}
+
+/* 🧾 CART TITLE */
+.cart-box h2 {
+  margin-bottom: 10px;
+}
+
+/* 💰 TOTAL */
+.cart-box h3 {
+  color: #1b5e20;
+}
+
+/* 🚀 PROCEED BUTTON */
+.cart-box .cta-btn {
+  display: inline-block;
+  margin-top: 15px;
+  padding: 12px 20px;
+  background: #2e7d32;
+  color: white;
+  text-decoration: none;
+  border-radius: 6px;
+  transition: 0.3s;
+}
+
+.cart-box .cta-btn:hover {
+  background: #1b5e20;
+}
+/* 📱 MOBILE RESPONSIVE */
+@media (max-width: 768px) {
+
+  /* Navbar */
+  .navbar {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .navbar nav {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin-top: 10px;
+  }
+
+  .navbar nav a {
+    margin: 5px 0;
+  }
+
+  /* Hero text */
+  .hero h1 {
+    font-size: 28px;
+  }
+
+  /* Price list (cards stack) */
+  .price-list {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  /* Item cards full width */
+  .item-card {
+    width: 90%;
+  }
+
+  /* Cart box */
+  .cart-box {
+    width: 90%;
+  }
+
+  /* Sections spacing */
+  section {
+    padding: 40px 15px;
+  }
+
+}
+
+/* 📱 SMALL DEVICES */
+@media (max-width: 480px) {
+
+  .hero h1 {
+    font-size: 22px;
+  }
+
+  .cta-btn {
+    width: 100%;
+    display: block;
+  }
+
+  .item-card {
+    padding: 20px;
+  }
+
+}
+/* 🔐 LOGIN BOX */
+.form-box {
+  background: white;
+  padding: 30px;
+  max-width: 400px;
+  margin: auto;
+  border-radius: 15px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+  text-align: center;
+}
+
+/* INPUT FIELDS */
+.form-box input {
+  width: 100%;
+  padding: 12px;
+  margin: 10px 0;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+}
+
+/* LOGIN BUTTON */
+.form-box .cta-btn {
+  width: 100%;
+  margin-top: 10px;
+}
+/* DASHBOARD SECTION */
+.form-section {
+  padding: 60px 20px;
+  background: #f1f8e9;
+}
+
+/* DASHBOARD TEXT */
+.form-box h2 {
+  margin-bottom: 15px;
+}
+
+/* INFO TEXT */
+.form-box p {
+  margin: 8px 0;
+  font-size: 14px;
+}
+
+/* ORDER CARD */
+.order-card {
+  background: white;
+  padding: 15px;
+  margin-top: 15px;
+  border-radius: 10px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+  text-align: left;
+}
+
+/* ORDER BUTTON */
+.order-card button {
+  margin-top: 10px;
+  background: #2e7d32;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.order-card button:hover {
+  background: #1b5e20;
+}
+/* 🌍 GLOBAL SMOOTH */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  transition: all 0.3s ease;
+}
+
+body {
+  font-family: 'Segoe UI', sans-serif;
+}
+/* CTA BUTTON */
+.cta-btn {
+  background: #2e7d32;
+  color: white;
+  padding: 12px 20px;
+  border-radius: 8px;
+  text-decoration: none;
+  display: inline-block;
+  border: none;
+  cursor: pointer;
+}
+
+.cta-btn:hover {
+  transform: scale(1.05);
+  background: #1b5e20;
+}
