@@ -176,7 +176,7 @@ document.getElementById("sellForm")?.addEventListener("submit", async function(e
   // ==============================
   // 📩 WHATSAPP AUTO SEND
   // ==============================
-  let message = `📦 Scrap Pickup Request
+  let message = `📦 Scrap Pickup Request from RecycleRaja
 
 👤 Name: ${name}
 📞 Phone: ${phone}
