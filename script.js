@@ -4,40 +4,48 @@ import { collection, addDoc, getDocs } from "https://www.gstatic.com/firebasejs/
 
 
 // ==============================
-// 📍 LOAD VENDORS FROM FIREBASE + CART
+// 📍 ON LOAD
 // ==============================
-window.addEventListener("DOMContentLoaded", function () {
-  loadVendors(); // 🔥 NEW
+window.addEventListener("DOMContentLoaded", () => {
+  loadVendors();
   loadCartSummary();
+  autoFillScrapType();
 });
 
 
 // ==============================
-// 🔥 LOAD VENDORS FROM FIREBASE
+// 🔥 LOAD VENDORS INTO DROPDOWN
 // ==============================
 async function loadVendors() {
-  const querySnapshot = await getDocs(collection(db, "vendors"));
+  try {
+    const querySnapshot = await getDocs(collection(db, "vendors"));
 
-  let select = document.getElementById("pincodeSelect");
+    let select = document.getElementById("pincodeSelect");
+    if (!select) return;
 
-  if (!select) return;
+    select.innerHTML = `<option value="">Select Your Area</option>`;
 
-  select.innerHTML = `<option value="">Select Your Area</option>`;
+    querySnapshot.forEach((doc) => {
+      let v = doc.data();
 
-  querySnapshot.forEach((doc) => {
-    let v = doc.data();
+      if (v.pincode && v.area) {
+        let option = document.createElement("option");
+        option.value = v.pincode;
+        option.textContent = `${v.area} (${v.pincode})`;
+        select.appendChild(option);
+      }
+    });
 
-    let option = document.createElement("option");
-    option.value = v.pincode;
-    option.textContent = `${v.area} (${v.pincode})`;
+    console.log("✅ Vendors loaded");
 
-    select.appendChild(option);
-  });
+  } catch (err) {
+    console.error("❌ Vendor Load Error:", err);
+  }
 }
 
 
 // ==============================
-// 🧾 LOAD CART
+// 🧾 LOAD CART SUMMARY
 // ==============================
 function loadCartSummary() {
   let cart = JSON.parse(localStorage.getItem("cart")) || [];
@@ -62,18 +70,20 @@ function loadCartSummary() {
 // ==============================
 // 🔥 AUTO-FILL SCRAP TYPE
 // ==============================
-let savedType = localStorage.getItem("scrapType");
+function autoFillScrapType() {
+  let savedType = localStorage.getItem("scrapType");
 
-if (savedType) {
-  let scrapInput = document.getElementById("scrapType");
+  if (savedType) {
+    let scrapInput = document.getElementById("scrapType");
 
-  if (scrapInput) {
-    let options = scrapInput.options;
+    if (scrapInput) {
+      let options = scrapInput.options;
 
-    for (let i = 0; i < options.length; i++) {
-      if (savedType.toLowerCase().includes(options[i].value.toLowerCase())) {
-        scrapInput.selectedIndex = i;
-        break;
+      for (let i = 0; i < options.length; i++) {
+        if (savedType.toLowerCase().includes(options[i].value.toLowerCase())) {
+          scrapInput.selectedIndex = i;
+          break;
+        }
       }
     }
   }
@@ -88,28 +98,46 @@ document.getElementById("sellForm")?.addEventListener("submit", async function(e
 
   console.log("🔥 Form submitted");
 
-  let name = document.getElementById("name").value;
-  let phone = document.getElementById("phone").value;
-  let address = document.getElementById("address").value;
+  // 📥 GET FORM VALUES
+  let name = document.getElementById("name").value.trim();
+  let phone = document.getElementById("phone").value.trim();
+  let address = document.getElementById("address").value.trim();
   let pincode = document.getElementById("pincodeSelect").value;
   let scrapType = document.getElementById("scrapType").value;
   let weight = document.getElementById("weight").value;
   let pickupDate = document.getElementById("pickupDate").value;
-let pickupTime = document.getElementById("pickupTime").value;
+  let pickupTime = document.getElementById("pickupTime").value;
   let notes = document.getElementById("notes").value;
 
-  // 🔥 GET VENDORS FROM FIREBASE (MATCHING)
-  const querySnapshot = await getDocs(collection(db, "vendors"));
+  let fullTime = `${pickupDate} at ${pickupTime}`;
 
+  // 🔍 VALIDATION
+  if (!name || !phone || !address || !pincode) {
+    alert("⚠️ Please fill all required fields");
+    return;
+  }
+
+  // 🔥 FETCH VENDORS
   let matchedVendor = null;
 
-  querySnapshot.forEach((doc) => {
-    let v = doc.data();
-    if (v.pincode === pincode) {
-      matchedVendor = v;
-    }
-  });
+  try {
+    const querySnapshot = await getDocs(collection(db, "vendors"));
 
+    querySnapshot.forEach((doc) => {
+      let v = doc.data();
+
+      if (v.pincode === pincode && !matchedVendor) {
+        matchedVendor = v;
+      }
+    });
+
+  } catch (err) {
+    console.error("❌ Vendor Fetch Error:", err);
+  }
+
+  console.log("🎯 Matched Vendor:", matchedVendor);
+
+  // 🛒 CART DATA
   let cart = JSON.parse(localStorage.getItem("cart")) || [];
   let total = localStorage.getItem("total") || 0;
 
@@ -117,13 +145,10 @@ let pickupTime = document.getElementById("pickupTime").value;
     `${item.name} - ${item.qty}kg = ₹${item.total}`
   ).join("\n");
 
-
   // ==============================
-  // 🔥 SAVE TO FIREBASE (ORDERS)
+  // 🔥 SAVE ORDER TO FIREBASE
   // ==============================
   try {
-    console.log("📤 Sending data to Firebase...");
-
     await addDoc(collection(db, "orders"), {
       name,
       phone,
@@ -131,27 +156,27 @@ let pickupTime = document.getElementById("pickupTime").value;
       pincode,
       scrapType,
       weight,
-      time,
+      pickupDate,
+      pickupTime,
       notes,
       cart,
       total,
       vendor: matchedVendor?.name || "Not Assigned",
+      vendorPhone: matchedVendor?.phone || "",
       status: "Pending",
       createdAt: new Date()
     });
 
-    console.log("✅ Data saved to Firebase");
+    console.log("✅ Order saved");
 
   } catch (err) {
     console.error("❌ Firebase Error:", err);
   }
 
-
   // ==============================
-  // 📩 WHATSAPP SEND
+  // 📩 WHATSAPP AUTO SEND
   // ==============================
-  let message = `
-📦 Scrap Pickup Request
+  let message = `📦 Scrap Pickup Request
 
 👤 Name: ${name}
 📞 Phone: ${phone}
@@ -160,7 +185,7 @@ let pickupTime = document.getElementById("pickupTime").value;
 
 ♻️ Scrap Type: ${scrapType}
 ⚖️ Weight: ${weight} kg
-⏰ Time: ${time}
+⏰ Pickup: ${fullTime}
 
 🧾 Items:
 ${cartText}
@@ -170,12 +195,21 @@ ${cartText}
 📝 Notes: ${notes}
 `;
 
-  if (matchedVendor) {
-    let url = `https://wa.me/${matchedVendor.phone}?text=${encodeURIComponent(message)}`;
-    window.open(url, "_blank");
+  if (matchedVendor && matchedVendor.phone) {
+    let whatsappURL = `https://wa.me/${matchedVendor.phone}?text=${encodeURIComponent(message)}`;
+
+    console.log("📲 Sending to:", matchedVendor.phone);
+
+    window.open(whatsappURL, "_blank");
+
   } else {
-    alert("❌ No vendor available in this area");
+    alert("❌ No vendor available in this pincode");
+    console.log("❌ No vendor found for:", pincode);
   }
 
+  // ==============================
+  // ✅ SUCCESS
+  // ==============================
   alert("✅ Request Submitted Successfully!");
+
 });
