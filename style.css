@@ -566,3 +566,65 @@ body {
   transform: scale(1.05);
   background: #1b5e20;
 }
+.locations {
+  text-align: center;
+  padding: 50px 20px;
+}
+
+.locations h1 {
+  margin-bottom: 10px;
+}
+
+.locations p {
+  color: #666;
+  margin-bottom: 20px;
+}
+
+.location-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  gap: 20px;
+  padding: 10px;
+}
+
+.location-card {
+  background: #ffffff;
+  padding: 25px 20px;
+  border-radius: 15px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+  transition: all 0.3s ease;
+}
+
+.location-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 15px 30px rgba(0,0,0,0.12);
+}
+
+.location-icon {
+  font-size: 32px;
+  margin-bottom: 10px;
+}
+
+.location-card h3 {
+  margin: 10px 0 5px;
+  font-size: 18px;
+}
+
+.location-card p {
+  color: #555;
+  margin-bottom: 12px;
+}
+
+.location-card button {
+  background: #28a745;
+  color: white;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.location-card button:hover {
+  background: #218838;
+}
