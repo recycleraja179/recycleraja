@@ -1,636 +1,313 @@
-
-/* 🌈 PREMIUM GLOBAL */
-body {
+/* =========================
+   🌍 GLOBAL RESET + BASE
+========================= */
+* {
   margin: 0;
-  font-family: 'Segoe UI', sans-serif;
-  background: linear-gradient(135deg, #e8f5e9, #ffffff);
-  color: #333;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+  transition: all 0.3s ease;
 }
 
-/* 🔥 NAVBAR */
+body {
+  background: #f5f7fa;
+  color: #333;
+  line-height: 1.6;
+}
+
+/* =========================
+   🔥 NAVBAR
+========================= */
 .navbar {
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 15px 30px;
-  background: linear-gradient(135deg, #1b5e20, #2e7d32);
-  color: white;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+  background: #ffffff;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.08);
 }
 
-.navbar a {
+.logo {
+  color: #1b5e20;
+  font-weight: bold;
+  font-size: 20px;
+}
+
+.navbar nav a {
   margin-left: 20px;
-  color: white;
   text-decoration: none;
+  color: #333;
   font-weight: 500;
 }
 
-.navbar a:hover {
-  opacity: 0.8;
+.navbar nav a:hover {
+  color: #1b5e20;
 }
 
 /* BUTTON */
 .btn {
-  background: white;
-  color: #1b5e20;
-  padding: 8px 15px;
-  border-radius: 20px;
-  font-weight: bold;
+  background: #1b5e20;
+  color: white !important;
+  padding: 8px 16px;
+  border-radius: 8px;
 }
-.logo {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  font-weight: bold;
-  color: white;
-}
-/* 🚀 HERO SECTION */
+
+/* =========================
+   🚀 HERO SECTION
+========================= */
 .hero {
-  background: linear-gradient(135deg, #2e7d32, #66bb6a);
+  background: linear-gradient(135deg, #1b5e20, #43a047);
   color: white;
   padding: 100px 20px;
   text-align: center;
-  border-bottom-left-radius: 40px;
-  border-bottom-right-radius: 40px;
 }
 
 .hero h1 {
-  font-size: 42px;
-  font-weight: bold;
+  font-size: 40px;
+  margin-bottom: 10px;
+}
+
+.hero p {
+  opacity: 0.9;
 }
 
 .hero-buttons {
-  margin-top: 25px;
+  margin-top: 20px;
 }
 
-/* CTA BUTTON */
+/* CTA */
 .cta-btn {
-  background: white;
-  color: #2e7d32;
-  padding: 12px 22px;
-  border-radius: 30px;
+  background: #ffffff;
+  color: #1b5e20;
+  padding: 12px 20px;
+  border-radius: 8px;
   text-decoration: none;
   margin: 10px;
+  display: inline-block;
   font-weight: bold;
-  transition: 0.3s;
 }
 
 .cta-btn:hover {
   transform: scale(1.05);
-  background: #e8f5e9;
 }
 
-/* SECOND BUTTON */
-.secondary-btn {
-  border: 2px solid white;
-  padding: 12px 22px;
-  color: white;
-  border-radius: 30px;
-}
-
-/* 🌟 SECTION STYLE */
+/* =========================
+   🌟 SECTIONS
+========================= */
 section {
   padding: 60px 20px;
   text-align: center;
 }
 
-/* STEPS */
-.steps {
-  display: flex;
-  justify-content: center;
-  gap: 30px;
-  flex-wrap: wrap;
-}
-
-.step {
-  max-width: 250px;
-  padding: 20px;
-  border-radius: 15px;
-  background: white;
-  box-shadow: 0 6px 20px rgba(0,0,0,0.08);
-  transition: 0.3s;
-}
-
-.step:hover {
-  transform: translateY(-5px);
-}
-
-/* BENEFITS */
-.benefit-grid {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 20px;
-}
-
+/* =========================
+   📦 CARDS (COMMON)
+========================= */
 .card {
-  padding: 25px;
-  width: 220px;
   background: white;
   border-radius: 15px;
-  box-shadow: 0 6px 20px rgba(0,0,0,0.08);
-  transition: 0.3s;
+  padding: 25px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.08);
 }
 
 .card:hover {
   transform: translateY(-6px);
 }
 
-/* CATEGORIES */
-.items {
+/* =========================
+   🧭 STEPS / FEATURES
+========================= */
+.steps {
   display: flex;
-  justify-content: center;
+  gap: 25px;
   flex-wrap: wrap;
-  gap: 15px;
+  justify-content: center;
 }
 
-.item {
-  padding: 10px 20px;
-  background: #e8f5e9;
-  border-radius: 25px;
-  font-weight: 500;
+.step {
+  width: 250px;
 }
 
-/* 📊 STATS */
+/* =========================
+   📊 STATS
+========================= */
 .stats-grid {
   display: flex;
+  gap: 30px;
   justify-content: center;
-  gap: 40px;
+  flex-wrap: wrap;
 }
 
 .stats-grid div {
   background: white;
   padding: 20px;
   border-radius: 15px;
-  min-width: 120px;
-  box-shadow: 0 5px 15px rgba(0,0,0,0.08);
 }
 
-/* TESTIMONIAL */
-.testimonial {
-  background: #f9f9f9;
+/* =========================
+   📂 CATEGORIES
+========================= */
+.items {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.item {
+  background: #e8f5e9;
+  padding: 10px 20px;
+  border-radius: 20px;
+}
+
+/* =========================
+   💰 PRICING (REUZE STYLE)
+========================= */
+.pricing {
   padding: 60px 20px;
 }
 
-.quote {
-  font-style: italic;
-  font-size: 18px;
-}
-
-/* CTA SECTION */
-.cta {
-  background: linear-gradient(135deg, #2e7d32, #43a047);
-  color: white;
-  border-radius: 20px;
-  margin: 20px;
-  padding: 40px;
-}
-
-.cta .big {
-  font-size: 20px;
-  font-weight: bold;
-}
-
-/* 🔥 PREMIUM FOOTER */
-.footer {
-  background: linear-gradient(135deg, #1b5e20, #2e7d32);
-  color: #fff;
-  padding: 50px 20px 20px;
-  margin-top: 50px;
-}
-
-.footer-container {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 30px;
-}
-
-.footer-section h2 {
-  font-size: 22px;
-  margin-bottom: 10px;
-}
-
-.footer-section h3 {
-  margin-bottom: 12px;
-  font-size: 16px;
-}
-
-.footer-section p {
-  font-size: 14px;
-  color: #e0e0e0;
-  line-height: 1.5;
-}
-
-.footer-section a {
-  display: block;
-  color: #c8e6c9;
-  text-decoration: none;
-  margin: 5px 0;
-  font-size: 14px;
-  transition: 0.3s;
-}
-
-.footer-section a:hover {
-  color: #ffffff;
-  transform: translateX(5px);
-}
-
-/* 🔘 CTA BUTTON */
-.footer-btn {
-  background: #66bb6a;
-  color: #1b5e20 !important;
-  padding: 10px 16px;
-  border-radius: 8px;
-  display: inline-block;
-  margin-top: 10px;
-  font-weight: bold;
-}
-
-.footer-btn:hover {
-  background: #a5d6a7;
-}
-
-/* 🔻 BOTTOM BAR */
-.footer-bottom {
-  border-top: 1px solid rgba(255,255,255,0.2);
-  text-align: center;
-  padding-top: 15px;
-  margin-top: 20px;
-  font-size: 13px;
-  color: #c8e6c9;
-}
-/* 🌈 Animated Background */
-body {
-  margin: 0;
-  font-family: 'Segoe UI', sans-serif;
-  background: linear-gradient(-45deg, #2e7d32, #66bb6a, #a5d6a7, #1b5e20);
-  background-size: 400% 400%;
-  animation: gradientBG 10s ease infinite;
-}
-
-/* Animation */
-@keyframes gradientBG {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
-}
-.bg-animation span {
-  position: absolute;
-  display: block;
-  width: 80px;
-  height: 80px;
-  background: rgba(255,255,255,0.2);
-  animation: move 20s linear infinite;
-  bottom: -150px;
-  border-radius: 50%;
-}
-
-.bg-animation span:nth-child(1) {
-  left: 10%;
-  animation-delay: 0s;
-}
-.bg-animation span:nth-child(2) {
-  left: 40%;
-  animation-delay: 5s;
-}
-.bg-animation span:nth-child(3) {
-  left: 70%;
-  animation-delay: 10s;
-}
-.bg-animation span:nth-child(4) {
-  left: 90%;
-  animation-delay: 15s;
-}
-
-@keyframes move {
-  0% {
-    transform: translateY(0) scale(1);
-  }
-  100% {
-    transform: translateY(-1000px) scale(1.5);
-  }
-}
-/* 💰 PRICING SECTION */
-.pricing {
-  text-align: center;
-  padding: 80px 20px;
-}
-
-/* 🧱 PRICE GRID */
 .price-list {
-  display: flex;
-  justify-content: center;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   gap: 25px;
-  flex-wrap: wrap;
-  margin-top: 30px;
+  padding: 30px;
 }
 
-/* 📦 ITEM CARD */
+/* ITEM CARD */
 .item-card {
   background: white;
-  padding: 25px;
-  width: 220px;
   border-radius: 15px;
-  box-shadow: 0 8px 25px rgba(0,0,0,0.1);
-  transition: 0.3s ease;
+  overflow: hidden;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.1);
 }
 
-/* 🔥 HOVER EFFECT */
 .item-card:hover {
   transform: translateY(-8px);
-  box-shadow: 0 12px 30px rgba(0,0,0,0.2);
 }
 
-/* 📄 TITLE */
+/* IMAGE */
+.item-card img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+}
+
+/* CONTENT */
 .item-card h3 {
-  margin-bottom: 10px;
-}
-
-/* 💰 PRICE TEXT */
-.item-card p {
-  font-weight: bold;
-  color: #2e7d32;
-}
-
-/* 🔢 INPUT */
-.item-card input {
-  width: 100%;
   margin: 12px 0;
-  padding: 10px;
-  border-radius: 6px;
-  border: 1px solid #ccc;
-}
-
-/* ➕ BUTTON */
-.item-card button {
-  width: 100%;
-  background: #2e7d32;
-  color: white;
-  border: none;
-  padding: 10px;
-  border-radius: 6px;
-  cursor: pointer;
-  transition: 0.3s;
-}
-
-.item-card button:hover {
-  background: #1b5e20;
-}
-
-/* 🧾 CART BOX */
-.cart-box {
-  margin-top: 50px;
-  background: linear-gradient(135deg, #e8f5e9, #c8e6c9);
-  padding: 25px;
-  border-radius: 15px;
-  max-width: 400px;
-  margin-left: auto;
-  margin-right: auto;
-  box-shadow: 0 5px 20px rgba(0,0,0,0.1);
-}
-
-/* 🧾 CART TITLE */
-.cart-box h2 {
-  margin-bottom: 10px;
-}
-
-/* 💰 TOTAL */
-.cart-box h3 {
   color: #1b5e20;
 }
 
-/* 🚀 PROCEED BUTTON */
-.cart-box .cta-btn {
-  display: inline-block;
-  margin-top: 15px;
-  padding: 12px 20px;
-  background: #2e7d32;
-  color: white;
-  text-decoration: none;
-  border-radius: 6px;
-  transition: 0.3s;
+.rate {
+  font-weight: bold;
 }
 
-.cart-box .cta-btn:hover {
+.item-card input {
+  width: 80%;
+  padding: 8px;
+  margin: 10px 0;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+}
+
+.estimate {
+  font-size: 14px;
+}
+
+.item-card button {
   background: #1b5e20;
-}
-/* 📱 MOBILE RESPONSIVE */
-@media (max-width: 768px) {
-
-  /* Navbar */
-  .navbar {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-
-  .navbar nav {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    margin-top: 10px;
-  }
-
-  .navbar nav a {
-    margin: 5px 0;
-  }
-
-  /* Hero text */
-  .hero h1 {
-    font-size: 28px;
-  }
-
-  /* Price list (cards stack) */
-  .price-list {
-    flex-direction: column;
-    align-items: center;
-  }
-
-  /* Item cards full width */
-  .item-card {
-    width: 90%;
-  }
-
-  /* Cart box */
-  .cart-box {
-    width: 90%;
-  }
-
-  /* Sections spacing */
-  section {
-    padding: 40px 15px;
-  }
-
+  color: white;
+  border: none;
+  padding: 10px;
+  margin: 10px;
+  border-radius: 8px;
+  cursor: pointer;
 }
 
-/* 📱 SMALL DEVICES */
-@media (max-width: 480px) {
-
-  .hero h1 {
-    font-size: 22px;
-  }
-
-  .cta-btn {
-    width: 100%;
-    display: block;
-  }
-
-  .item-card {
-    padding: 20px;
-  }
-
+/* =========================
+   🧾 CART
+========================= */
+.cart-box {
+  background: white;
+  max-width: 400px;
+  margin: 40px auto;
+  padding: 20px;
+  border-radius: 15px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.1);
 }
-/* 🔐 LOGIN BOX */
+
+/* =========================
+   📍 LOCATIONS
+========================= */
+.location-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  gap: 20px;
+}
+
+.location-card {
+  background: white;
+  padding: 25px;
+  border-radius: 15px;
+}
+
+.location-card:hover {
+  transform: translateY(-6px);
+}
+
+/* =========================
+   🧾 FORM / LOGIN
+========================= */
 .form-box {
   background: white;
   padding: 30px;
   max-width: 400px;
   margin: auto;
   border-radius: 15px;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-  text-align: center;
 }
 
-/* INPUT FIELDS */
 .form-box input {
   width: 100%;
   padding: 12px;
   margin: 10px 0;
   border-radius: 8px;
-  border: 1px solid #ccc;
 }
 
-/* LOGIN BUTTON */
-.form-box .cta-btn {
-  width: 100%;
-  margin-top: 10px;
-}
-/* DASHBOARD SECTION */
-.form-section {
-  padding: 60px 20px;
-  background: #f1f8e9;
-}
-
-/* DASHBOARD TEXT */
-.form-box h2 {
-  margin-bottom: 15px;
-}
-
-/* INFO TEXT */
-.form-box p {
-  margin: 8px 0;
-  font-size: 14px;
-}
-
-/* ORDER CARD */
+/* =========================
+   📦 DASHBOARD
+========================= */
 .order-card {
   background: white;
   padding: 15px;
-  margin-top: 15px;
   border-radius: 10px;
-  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-  text-align: left;
+  margin-top: 15px;
 }
 
-/* ORDER BUTTON */
-.order-card button {
-  margin-top: 10px;
-  background: #2e7d32;
-  color: white;
-  border: none;
-  padding: 8px 12px;
-  border-radius: 5px;
-  cursor: pointer;
-}
-
-.order-card button:hover {
+/* =========================
+   🔻 FOOTER
+========================= */
+footer {
   background: #1b5e20;
-}
-/* 🌍 GLOBAL SMOOTH */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  transition: all 0.3s ease;
-}
-
-body {
-  font-family: 'Segoe UI', sans-serif;
-}
-/* CTA BUTTON */
-.cta-btn {
-  background: #2e7d32;
   color: white;
-  padding: 12px 20px;
-  border-radius: 8px;
-  text-decoration: none;
-  display: inline-block;
-  border: none;
-  cursor: pointer;
-}
-
-.cta-btn:hover {
-  transform: scale(1.05);
-  background: #1b5e20;
-}
-.locations {
+  padding: 20px;
   text-align: center;
-  padding: 50px 20px;
 }
 
-.locations h1 {
-  margin-bottom: 10px;
-}
+/* =========================
+   📱 RESPONSIVE
+========================= */
+@media (max-width: 768px) {
 
-.locations p {
-  color: #666;
-  margin-bottom: 20px;
-}
+  .navbar {
+    flex-direction: column;
+  }
 
-.location-list {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
-  gap: 20px;
-  padding: 10px;
-}
+  .price-list {
+    grid-template-columns: 1fr;
+  }
 
-.location-card {
-  background: #ffffff;
-  padding: 25px 20px;
-  border-radius: 15px;
-  box-shadow: 0 10px 25px rgba(0,0,0,0.08);
-  transition: all 0.3s ease;
-}
+  .steps {
+    flex-direction: column;
+  }
 
-.location-card:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 15px 30px rgba(0,0,0,0.12);
-}
-
-.location-icon {
-  font-size: 32px;
-  margin-bottom: 10px;
-}
-
-.location-card h3 {
-  margin: 10px 0 5px;
-  font-size: 18px;
-}
-
-.location-card p {
-  color: #555;
-  margin-bottom: 12px;
-}
-
-.location-card button {
-  background: #28a745;
-  color: white;
-  border: none;
-  padding: 10px 16px;
-  border-radius: 8px;
-  cursor: pointer;
-  font-size: 14px;
-}
-
-.location-card button:hover {
-  background: #218838;
 }
